@@ -11,7 +11,7 @@ const connect = async() => {
         return;
     }
 
-    const db = await mongoose.connect(URI)
+    const db = await mongoose.connect(url)
     conexao.isConnected = db.connections[0].readyState;
 };
 
