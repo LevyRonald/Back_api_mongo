@@ -4,12 +4,15 @@ const conexao ={
     isConnected: 0
 };
 
-    const url = process.env.MONGO_URI
+    const url = process.env.MONGO_URI;
 
 const connect = async() => {
     if(conexao.isConnected){
         return;
     }
 
-    const db = await mongoose.connect()
+    const db = await mongoose.connect(URI)
+    conexao.isConnected = db.connections[0].readyState;
 };
+
+module.exports = connect;
