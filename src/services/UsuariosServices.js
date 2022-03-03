@@ -1,4 +1,5 @@
 const connect = require('../db/conexao');
+const {hash} = require('bcrypt')
 const UsuarioSchema = require('../db/schemas/UsuarioSchema');
 
 class UsuariosServices{
@@ -11,13 +12,14 @@ class UsuariosServices{
         const {nome, email, senha} = req.body;
         try{
             await this.conexao();
+            const senhaHash = await hash(senha,11);
             const usuarios = await this.usuarios.create({
                 nome,
                 email, 
-                senha
+                senha: senhaHash
             })
-            
-            return res.status(201).json({usuarios})
+            const {senha: senhaUsuarioCriado, ...resto } = usuarios._doc;
+            return res.status(201).json({usuarios: resto})
         }catch(error){
             console.log(error)
             return res.status(400).json(error)
