@@ -13,5 +13,10 @@ routes.route('/usuarios')
     .post((req, res) =>{
         return usuariosControllers.createController(req, res)
     })
+    .get(async (req, res)=> await usuariosControllers.gelAllController(req, res))
+
+routes.route('/usuarios/show')
+    .get(async (req, res)=> await usuariosControllers.showController(req, res))
+
 
 module.exports = routes;

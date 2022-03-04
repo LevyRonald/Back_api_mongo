@@ -12,6 +12,18 @@ class UsuariosControllers{
         }
         return this.services.CreateService(req, res)
     }
+
+    async gelAllController(req, res){
+        return this.services.getUsuariosService(req, res);
+    }
+
+    async showController(req, res){
+        const {email} = req.body
+        if(!email){
+            return res.status(400).json({error: "Coloque um email cadastrado!"})
+        }
+        return this.services.showUsuarioService(req, res);
+    }
 }
 
 module.exports = UsuariosControllers;
