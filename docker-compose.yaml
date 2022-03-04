@@ -31,3 +31,4 @@ services:
 
 networks:
   api-mongo:
+    driver: bridge
