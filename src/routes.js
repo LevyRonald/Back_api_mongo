@@ -1,12 +1,9 @@
 const express = require("express");
 const UsuariosControllers = require('./controllers/UsuariosControllers');
 const AuthControllers = require('./controllers/auth.controller');
-const Middleware = require('./middlewares/validadeToken')
-const UsuarioSchema = require('./db/schemas/UsuarioSchema');
-
+const Middleware = require('./middlewares/validateToken.js');
 const usuariosControllers = new UsuariosControllers();
 const authControllers = new AuthControllers();
-
 
 const routes = express.Router();
 
@@ -22,8 +19,7 @@ routes.route('/usuarios')
 routes.route('/login')
     .post(async (req, res) => await authControllers.loginController(req, res))
 
-
-routes.use(new Middleware().validadeToken)
+routes.use(new Middleware().validateToken)
 
 
 routes.route('/usuarios')
@@ -31,5 +27,8 @@ routes.route('/usuarios')
 
 routes.route('/usuarios/show')
     .get(async (req, res)=> await usuariosControllers.showController(req, res))
+
+routes.route('/deletar')
+    .delete(async (req, res)=> await usuariosControllers.deleteController(req, res))
 
 module.exports = routes;

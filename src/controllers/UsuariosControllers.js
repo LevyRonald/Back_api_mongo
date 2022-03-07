@@ -24,6 +24,14 @@ class UsuariosControllers{
         }
         return this.services.showUsuarioService(req, res);
     }
+
+    async deleteController(req, res){
+        const {email} = req.body
+        if(!email){
+            return res.status(400).json({error: "Coloque um email cadastrado!"})
+        }
+        return this.services.deleteUsuarioService(req, res);
+    }
 }
 
 module.exports = UsuariosControllers;

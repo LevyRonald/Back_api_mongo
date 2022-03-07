@@ -49,6 +49,21 @@ class UsuariosServices{
             return res.status(400).json(error)
         }
     }
+    async deleteUsuarioService(req, res){
+        const {email} = req.body;
+        try {
+            await this.conexao();
+            const usuarios = await this.usuarios.findOne({ email });
+            if(!usuarios){
+                return res.status(401).json(' email invalido!')
+            }
+            const usuario = await this.usuarios.deleteOne({email});
+            return res.status(200).json('deletô');
+        } catch (error) {
+            return res.status(400).json(error)
+        }
+
+    }
 }
 
 module.exports = UsuariosServices;
