@@ -18,7 +18,7 @@ class AuthService {
     }
 
     #_generateToken(usuario){
-        return sign({usuario}, process.env.KEY_MASTER_JWT, {
+        return sign(usuario, process.env.KEY_MASTER_JWT, {
             expiresIn: '8h',
         });
     }
@@ -35,7 +35,7 @@ class AuthService {
             if(!validatePass) {
                 return res.status(401).json({ error: "Email ou senha invalído" })
             }
-            const { senha, email, ...resto } = usuario._doc;
+            const { senha: senhaUsuario, email: emailUsuario, ...resto } = usuario._doc;
             const token = this.#_generateToken({ usuario: resto})
             return res.status(200).json({ token })
         } catch (error) {
