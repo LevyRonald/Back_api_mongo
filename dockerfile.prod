@@ -1,0 +1,15 @@
+FROM node:16
+
+USER root
+
+WORKDIR /home/mode/app
+
+COPY package.json .
+
+RUN yarn install
+
+COPY . . 
+
+ENTRYPOINT [ "yarn", "start "]
+
+EXPOSE 3000
